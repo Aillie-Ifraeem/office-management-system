@@ -1,0 +1,2 @@
+INSERT INTO tasks (title, description, assigned_by, assigned_to)
+VALUES ('Prepare report', 'Monthly sales summary', 2, 4);

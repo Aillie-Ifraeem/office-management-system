@@ -1,0 +1,42 @@
+Define ROLES (3 only)
+
+Reception
+
+Doctor
+
+Nurse
+
+//////////
+
+Define PATIENT STATES
+REGISTERED
+WAITING
+IN_CONSULTATION
+TESTING
+TREATMENT
+DISCHARGED
+
+//////////////
+Define EVENTS
+
+Examples:
+
+patient_registered
+
+triage_updated
+
+doctor_assigned
+
+emergency_triggered
+
+//////////////
+
+Define RULES (plain English)
+
+Examples:
+
+A patient cannot skip states
+
+Emergency overrides queue order
+
+Only doctors can discharge patients

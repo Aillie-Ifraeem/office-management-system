@@ -1,0 +1,196 @@
+OMS 
+
+while in the process making login system via JS i have learned:
+event.preventDefault()
+
+fetch()
+
+async / await
+
+JSON response handling
+
+Frontend ↔ backend communication
+
+UI feedback without reload
+
+
+this was the core JS code i have worked on in phase 2.1:
+
+<script>
+
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const email = document.querySelector("input[name='email']").value;
+        const password = document.querySelector("input[name='password']").value;
+    
+        const response = await fetch("login_process.php", {
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({email, password})
+        });
+
+        const result = await response.json();
+
+        if(result.status == "success"){
+            window.location.href = result.redirect;
+        }else{
+            document.getElementById("errorMsg").innerText = result.message;
+        }
+    });
+    </script>
+
+
+explanation:
+
+firstly this code use DOM.
+
+uses Event Listeners with async function
+
+async function(e) {
+This is the function that runs when the form is submitted
+
+e (event object)
+Contains information about the submit action
+Used to stop default behavior
+
+e.preventDefault(); // 🚨 VERY IMPORTANT
+
+What normally happens?
+Form submits
+Page reloads
+Data sent to PHP directly
+
+What this line does:
+Stops the default form submission
+Prevents page reload
+Allows AJAX-style login
+
+What is AJAX? (one line)
+
+AJAX lets a webpage talk to the server and get data without refreshing the whole page.
+
+Important Note 🧠
+AJAX is not a language
+AJAX is a technique
+
+Uses:
+JavaScript
+API
+JSON
+
+What is an API? (in one line)
+API is a messenger that lets one software talk to another software in a fixed, safe way.
+
+Real-Life Analogy 🍽️ (Restaurant Example)
+You = Customer
+App = Kitchen
+API = Waiter
+
+How it works in real life:
+You don’t go into the kitchen yourself ❌
+You tell the waiter what you want
+
+The waiter:
+Takes your order
+Goes to the kitchen
+Brings back the food
+➡️ You never see how food is cooked
+➡️ You only care that you get the food
+
+
+
+What is JSON? (one line)
+JSON is a simple way to write and send data so computers can understand it easily.
+
+Real-Life Analogy 📦 (Form / Packet)
+Imagine you want to send details to someone.
+You write it like this on paper:
+Name: Ali
+Age: 21
+City: Karachi
+
+That’s structured data.
+👉 JSON is exactly this, but for computers.
+
+Key Rules of JSON 🧠
+✔ Data is in key : value pairs
+
+Normal:
+Ali,21,Karachi
+
+JSON:
+{
+  "name": "Ali",
+  "age": 21,
+  "city": "Karachi"
+}
+
+
+✔ Keys are always in double quotes
+✔ Uses {} for objects
+✔ Uses [] for lists
+
+
+then we also used fetch() function
+The fetch() method in JavaScript is a modern, promise-based API for making asynchronous
+network requests, such as fetching data from an API or submitting data to a server. 
+
+fetch(url, options)
+url → where to send
+options → how to send
+
+inside the option we have 3 parts:
+method: what action
+headers: type of data
+body: data you’re sending
+
+then we used JSON.Stringify() why?
+
+in Reality:
+Server cannot understand JavaScript objects
+Internet only sends text
+
+js obj:
+{
+  email: "ali@gmail.com",
+  password: "12345"
+}
+
+not allowed!
+
+then we'll use:
+JSON.stringify(...)
+✅ Converts it into text JSON
+
+text JSON:
+{"email":"ali@gmail.com","password":"12345"}
+
+
+then in this part of code:
+
+const result = await response.json();
+
+        if(result.status == "success"){
+            window.location.href = result.redirect;
+        }else{
+            document.getElementById("errorMsg").innerText = result.message;
+        }
+
+we are using response (our variable which has actual response from login_process.php), why using json()? because
+inside response we have jSON coming directly from login_process file. json() convert this into JS obj.
+
+these were the obj contents (below is a piece of code from login_process.php ):
+if everthing worked well then
+ echo json_encode([
+            "status" => "success",
+            "redirect" => $redirect
+        ]);
+}else{
+    echo json_encode([
+        "status" => "error",
+        "message" => "Invalid email or password"
+    ]);
+}
+

@@ -1,0 +1,44 @@
+ERD:
+
+Receptioniset:
+Staff ID
+password
+Name
+Date/Time
+
+
+Patient:
+Patient Serial Number
+Name
+Date/time of arrival
+guardian 1 name (only when, admitting patient)
+guardian 2 name (only when, admitting patient)
+Room number (only when, admitting patient)
+Block number (only when, admitting patient)
+bed number (only when, admitting patient)
+patient's admit date/time (only when, admitting patient)
+
+
+
+Doctor:
+doctor ID
+password
+Name
+check-in time
+check-out time
+Doctor State (Free,In_Consultation, or busy)
+Patient Serial Number (serial number of the Consultide patient)
+
+
+
+Nurse:
+Nurse ID
+password
+Name
+check-in time
+check-out time
+Patient Serial Number (serial number of patient whom nurse took care of, but only for those who are in need not for General service)
+ID of Doctor (why cuz, it's important when some patient need nurse's care, a doctor should assign a nurse to them)
+
+
+
